@@ -1,0 +1,59 @@
+aH89Dlh4YEpCRWFs
+
+
+
+mongodb+srv://anisur:aH89Dlh4YEpCRWFs@anisur.kaax7ve.mongodb.net/?appName=anisur
+
+mongodb+srv://anisur:aH89Dlh4YEpCRWFs@anisur.kaax7ve.mongodb.net/?appName=anisur
+
+
+mongodump --uri="mongodb+srv://anisur:aH89Dlh4YEpCRWFs@anisur.kaax7ve.mongodb.net/?appName=anisur"
+
+mmongodump --uri="mongodb+srv://casedata:RkbfK31k4Ijy6D3c@cluster0.cxxpkn1.mongodb.net/?appName=Cluster0"
+
+mongorestore --uri="new-m10-uri" dump/
+mongorestore --uri="mongodb+srv://anisur:aH89Dlh4YEpCRWFs@anisur.kaax7ve.mongodb.net/?appName=anisur" dump/
+
+
+
+
+mongodump --uri="mongodb+srv://username:password@cluster-url.mongodb.net/"
+
+mongodump --uri="mongodb+srv://username:password@cluster-url.mongodb.net/"
+
+QSho6VSLNS1N6uZ8
+crcaseDB
+
+mongodump --uri="mongodb+srv://crcaseDB:QSho6VSLNS1N6uZ8@cluster0.cxxpkn1.mongodb.net/?appName=Cluster0"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+node -v
+
+nvm use 20
+
+nvm install 20
+nvm use 20
+
+rm -rf node_modules package-lock.json .next
+npm install
+npm run dev
+
+0.0.0.0/0
