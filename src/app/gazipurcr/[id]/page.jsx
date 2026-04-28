@@ -21,9 +21,13 @@ export default function CaseDetailsCard() {
     fetch(`${process.env.NEXT_PUBLIC_FETCH_API}/${id}`)
       .then(res => res.json())
       .then(singleData => {
-        setData(singleData);
-        setFormData(singleData);
-        setLoading(false);
+      setData(singleData);
+      setFormData({
+        ...singleData,
+        nextDateStatus:
+            singleData.nextDateStatus || []
+      });
+      setLoading(false);
       });
   }, [id]); // ✅ dependency add
 
@@ -95,27 +99,37 @@ export default function CaseDetailsCard() {
     // }
   };
 
-  const handleDateChange = (e, index) => {
-    const updatedDates = [...formData.nextDateStatus];
-    updatedDates[index] = e.target.value;
+const handleDateChange = (index, field, value) => {
+  const updatedDates = [...(formData.nextDateStatus || [])];
 
-    setFormData(prev => ({
-      ...prev,
-      nextDateStatus: updatedDates
-    }));
+  updatedDates[index] = {
+    ...updatedDates[index],
+    [field]: value
   };
 
-  const handleAddDate = (value) => {
-    if (!value) return;
+  setFormData(prev => ({
+    ...prev,
+    nextDateStatus: updatedDates
+  }));
+};
 
-    setFormData(prev => ({
-      ...prev,
-      nextDateStatus: [...(prev.nextDateStatus || []), value]
-    }));
-  };
+const handleAddDate = () => {
+  setFormData(prev => ({
+    ...prev,
+    nextDateStatus: [
+      ...(prev.nextDateStatus || []),
+      {
+        nextDate: "",
+        nextStatus: ""
+      }
+    ]
+  }));
+};
 
 const handleDeleteDate = (index) => {
-  const updatedDates = formData.nextDateStatus.filter((_, i) => i !== index);
+  const updatedDates = formData.nextDateStatus.filter(
+    (_, i) => i !== index
+  );
 
   setFormData(prev => ({
     ...prev,
@@ -169,21 +183,13 @@ const policeStationMap = {
       <button onClick={() => router.back()} className="text-white mb-4 inline-block border border-blue-200 px-3 py-1 rounded-lg bg-green-600 hover:bg-blue-200 transition text-center items-center cursor-pointer">
         &larr; Back to page
       </button>
-      <div className="bg-white shadow-xl rounded-2xl p-6 border">
+      <div className="bg-white dark:bg-base-200 rounded-2xl p-6 border">
         
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">মামলার সম্পর্কে বিস্তারিত তথ্য</h2>
           <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm border border-blue-600">
-            {isEditing ? (
-              <input
-                name="caseStatus"
-                value={formData.caseStatus || ""}
-                onChange={handleChange}
-                className="border px-2 py-1 rounded"
-              />
-            ) : (
-              data.caseStatus || "No Status"
-            )}
+            কেস ধরন: {
+              data.caseType || "No Status"}
           </span>
         </div>
 
@@ -198,7 +204,7 @@ const policeStationMap = {
                 className="border px-2 py-1 rounded"
               />
             ) : (
-              data.caseNumber
+              `${data.caseNumber}/${data.caseYear.slice(2)}`
             )}
           </p>
           <p>
@@ -242,27 +248,16 @@ const policeStationMap = {
 }
           </p>
           <p>
-            <strong>কেস টাইপ:</strong>{" "}
+            <strong>বদলী কোট:</strong>{" "}
             {isEditing ? (
-              // <input
-              //   name="caseType"
-              //   value={formData.caseType || ""}
-              //   onChange={handleChange}
-              //   className="border px-2 py-1 rounded"
-              // />
-
-                <select
-                  name="policeStation"
-                  value={formData.policeStation || ""}
+                <input
+                  name="trSession"
+                  value={formData.trSession || ""}
                   className="select select-bordered"
                   onChange={handleChange}
-                >
-                  <option value="CR">CR</option>
-                  <option value="GR">GR</option>
-                </select>
-                
+                />                
             ) : (
-              data.caseType
+              data.trSession || "N/A"
             )}
           </p>
           <p>
@@ -379,74 +374,111 @@ const policeStationMap = {
               data.article
             )}
           </p>
-          <p>
-            <strong>মামলার তারিখসমূহ:</strong>{" "}
-            {isEditing ? (
-              <span className="flex">
-                {/* {data.nextDateStatus.map((date, index) => (
-                  <input
-                    key={index}
-                    name="nextDateStatus"
-                    value={date}
-                    type="date"
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ))} */}
-<span>
-{formData.nextDateStatus?.map((date, index) => (
-  <div key={index} className="flex items-center gap-2 mb-2">
-    <input
-      value={date}
-      type="date"
-      onChange={(e) => handleDateChange(e, index)}
-      className="border px-2 py-1 rounded"
-    />
 
-    <button
-      onClick={() => handleDeleteDate(index)}
-      className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition cursor-pointer"
-    >
-      ✕
-    </button>
-  </div>
-))}
-
-</span>
+ 
 
 
-                <span className="mx-2">or</span>
 
 
+
+
+<p>
+<strong>পরবর্তী তারিখ ও স্ট্যাটাস:</strong>
+
+{isEditing ? (
+<div className="space-y-4 mt-2">
+
+{formData.nextDateStatus?.map((item,index)=>(
+<div
+key={index}
+className="border dark:bg-base-200 text-base-content rounded p-3 space-y-2"
+>
 
 <input
-  type="date"
-  onChange={(e) => handleAddDate(e.target.value)}
-  className="border px-2 py-1 rounded mt-2 h-6"
+type="date"
+value={item.nextDate || ""}
+onChange={(e)=>
+handleDateChange(
+index,
+"nextDate",
+e.target.value
+)
+}
+className="border px-2 py-1 rounded w-full"
 />
 
+<textarea
+placeholder="Status"
+value={item.nextStatus || ""}
+onChange={(e)=>
+handleDateChange(
+index,
+"nextStatus",
+e.target.value
+)
+}
+className="border px-2 py-1 rounded w-full"
+/>
+
+<button
+onClick={()=>handleDeleteDate(index)}
+className="px-3 py-1 bg-red-500 text-white rounded"
+>
+Delete
+</button>
+
+</div>
+))}
+
+<button
+onClick={handleAddDate}
+className="px-4 py-2 bg-blue-600 text-white rounded"
+>
++ নতুন তারিখ যোগ করুন
+</button>
+
+</div>
+) : (
+
+<div className="space-y-3 mt-2">
+{data.nextDateStatus?.map((item,index)=>(
+<div
+key={index}
+className="
+rounded-xl
+p-4
+bg-base-100
+dark:bg-neutral
+border border-primary/20
+shadow-md
+"
+>
+<p>
+<strong>তারিখ:</strong> {item.nextDate}
+</p>
+
+<p>
+<strong>স্ট্যাটাস:</strong>{" "}
+{item.nextStatus || "N/A"}
+</p>
+</div>
+))}
+</div>
+
+)}
+
+</p>
 
 
 
 
 
-                {/* <input
-                  name="newnextDateStatus"
-                  value=""
-                  type="date"
-                  onChange={handleChange}
-                  className="border px-2 py-1 rounded mt-2"
-                  placeholder="Add new date"
-                /> */}
-              </span>
-            ) : (
-              Array.isArray(data.nextDateStatus)
-                ? data.nextDateStatus.map((d, i) => (
-                    <span key={i}>{d}{i !== data.nextDateStatus.length - 1 && ", "}</span>
-                  ))
-                : data.nextDateStatus
-            )}
-          </p>
+
+
+
+
+
+          
           <p>
             <strong>মন্তব্য:</strong>{""}
             {isEditing ? (

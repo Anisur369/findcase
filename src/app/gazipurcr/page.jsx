@@ -132,14 +132,14 @@ const gazipurData = [
 ];
 
   return (
-    <div className="py-2 sm:p-2">
-      <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-200">
+    <div className="">
+      <div className="overflow-auto max-h-[80vh] rounded-xl shadow-lg border border-gray-200">
         <table className="table table-zebra table-sm">
           
-          <thead className="bg-gray-100 text-gray-800 text-sm uppercase">
+          <thead className="sticky top-0 z-30 bg-gray-100 text-gray-800 text-sm uppercase">
             <tr>
-              <th>No.</th>
-              <th>
+              <th className="px-1 w-5">No.</th>
+              <th className="px-0 w-26">
                 <span>মামল নং</span>
                 <select name="caseYear" className="" onChange={handleSearchChange}>
                   <option value="">Select</option>
@@ -158,75 +158,75 @@ const gazipurData = [
                   <option value="2032">2032</option>
                 </select>
               </th>
-              <th>ফাইলিং তারিখ</th>
-              <th>বাদী</th>
-              <th>আসামী</th>
-              <th>ধারা</th>
-              <th>তারিখ / মামলা অবস্থা</th>
+              <th className="w-26 px-1.5">ফাইলিং তারিখ</th>
+              <th className="w-50 xl:w-80">বাদী</th>
+              <th className="w-50 xl:w-80">আসামী</th>
+              <th className="w-32 xl:w-40">ধারা</th>
+              <th className="w-50">তারিখ / মামলা অবস্থা</th>
               {/* <th>মামলা অবস্থা</th> */}
               {/* <th>আদালত নং</th> */}
-              <th>মন্তব্য</th>
-              <th className="flex justify-end">Action</th>
+              <th className="text-center w-50 block sm:w-full">মন্তব্য</th>
+              <th className="w-34 text-center">Action</th>
             </tr>
           </thead>
 
           <tbody className="text-sm">
-            <tr className="">
-              <td></td>
-              <td className="font-semibold">
+            <tr className="sticky top-[37px] bg-gray-400 z-20 shadow-sm">
+              <td className="bg-gray-400"></td>
+              <td className="font-semibold px-0.5 md:px-1">
                 <input
                   type="search"
                   name="caseNumber"
                   onChange={handleSearchChange}
                   placeholder="মামল নম্বর খুঁজুন"
-                  className="input input-sm input-bordered rounded-lg"
+                  className="input input-sm w-full px-1 input-bordered rounded-lg"
                 />
               </td>
-              <td>
+              <td className="px-0.5 md:px-1 w-26">
                 <input
                   type="date"
                   name="filingDate"
                   onChange={handleSearchChange}
                   placeholder="তারিখ খুঁজুন"
-                  className="w-29 input input-sm input-bordered rounded-lg"
+                  className="w-full px-0 input input-sm input-bordered rounded-lg"
                 />
               </td>
-              <td className="whitespace-normal">
+              <td className="px-0.5 md:px-1">
                 <input
                   type="search"
                   name="plaintiff"
                   onChange={handleSearchChange}
                   placeholder="বাদী খুঁজুন"
-                  className="input input-sm input-bordered w-full rounded-lg"
+                  className="input input-sm px-2 input-bordered w-40 sm:w-full rounded-lg"
                 />              
               </td>
-              <td className="max-w-xs whitespace-normal">
+              <td className="px-0.5 md:px-1">
                 <input
                   type="search"
                   name="defendant"
                   onChange={handleSearchChange}
                   placeholder="আসামী খুঁজুন"
-                  className="input input-sm input-bordered w-full rounded-lg"
+                  className="input input-sm px-2 input-bordered w-40 sm:w-full rounded-lg"
                 />
               </td>
-              <td className="text-red-600 font-medium">  
+              <td className="font-medium px-0.5 md:px-1">  
                 <input
                   type="search"
                   name="article"
                   onChange={handleSearchChange}
                   placeholder="ধারা খুঁজুন"
-                  className="input input-sm input-bordered w-full rounded-lg"
+                  className="input input-sm input-bordered w-26 sm:w-full rounded-lg"
                 />              
               </td>
 
 
 
-<td className="space-y-2 flex flex-row">
+<td className="space-y-2 flex flex-row px-0.5 md:px-1">
 <input
 type="date"
 name="nextDate"
 onChange={handleSearchChange}
-className="input input-sm input-bordered rounded-lg"
+className="input input-sm input-bordered rounded-lg w-45 sm:w-full"
 />
 
 {/* <input
@@ -259,7 +259,7 @@ className="input input-sm input-bordered rounded-lg"
             :filteredData.map((caseItem, index) => (
             caseItem.caseType === "CR" && (
               <tr key={caseItem._id} className="">
-                <th className="bg-gray-200">{index + 1}</th>
+                <th className="px-2 text-center bg-gray-400">{index + 1}</th>
                 <td className="">
                   <div>
                     {gazipurData.find(v => v.base === caseItem.policeStation)?.name || caseItem.policeStation}
@@ -271,6 +271,7 @@ className="input input-sm input-bordered rounded-lg"
                       {Number(caseItem.caseYear.slice(2)).toLocaleString('bn-BD')}
                     </span>
                   </div>
+                  <div>{caseItem.trSession}</div>
                 </td>
                 <td>{caseItem.filingDate?new Date(caseItem.filingDate).toLocaleDateString("bn-bd"):""}</td>
                 <td className="whitespace-pre-line">
@@ -307,9 +308,9 @@ className="input input-sm input-bordered rounded-lg"
 
 
 
-                <td className="whitespace-pre-line">{caseItem.note}</td>
+                <td className="text-center">{caseItem.note}</td>
                 {/* 🔥 Action Buttons */}
-                <td className="flex gap-2 flex-col items-center justify-end">
+                <td className="flex gap-2 flex-col items-center justify-end border-0">
                   <div className="flex gap-2">
                     <Link href={`/gazipurcr/${caseItem._id}`} className="btn btn-xs btn-info text-white w-28">
                       বিস্তারিত দেখুন

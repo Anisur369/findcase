@@ -9,6 +9,7 @@ export default function CaseForm() {
     caseNumber: "",
     caseYear: "",
     caseType: "CR",
+    trSession: "",
     filingDate: "",
     uploadDate: new Date().toISOString().split("T")[0],
     plaintiff: "",
@@ -136,12 +137,12 @@ const removenextDateStatus = (index) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center from-blue-50 to-gray-100 p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl bg-white p-6 rounded-2xl shadow-xl space-y-5"
+        className="w-full max-w-2xl p-6 rounded-2xl shadow-xl space-y-5"
       >
-        <h2 className="font-bold text-center text-gray-700">
+        <h2 className="font-bold text-center">
           <div className="text-2xl flex items-center justify-center gap-2">
             <span>📁</span>
             <span>CR Case Entry Form</span>
@@ -184,6 +185,10 @@ const removenextDateStatus = (index) => {
               <option value="2039">2039</option>
               <option value="2040">2040</option>
             </select>
+          </div>
+          <div>
+            <label className="label font-medium">টি.আর/দায়রা</label>
+            <input type="text" name="trSession" className="input input-bordered w-full" onChange={handleChange} />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -304,10 +309,7 @@ className="btn btn-outline btn-sm mt-2"
 
 
 
-        {/* <div>
-          <label className="label font-medium">মামলার অবস্থা</label>
-          <input type="text" name="caseStatus" className="input input-bordered w-full" onChange={handleChange} />
-        </div> */}
+
 
         <div>
           <label className="label font-medium">মন্তব্য</label>

@@ -16,7 +16,7 @@ function Navbar() {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-100 mt-3 w-52 p-2 shadow">
             <li><Link href="/">Home</Link></li>
             {/* <li>              
               <Link href={"/gazipurcr"}>GazipurCR</Link>
@@ -39,7 +39,7 @@ function Navbar() {
             <li>
               <details id="case-add-dropdown">
                 <summary><Link href={"/gazipurcr"}>Gazipur CR</Link></summary>
-                <ul className="p-2 bg-base-100 w-40 z-1">
+                <ul className="p-2 bg-base-100 w-40 z-50">
                   <li><Link href={"/gazipurcr/gazipursadar"} onClick={() => {document.getElementById("case-add-dropdown")?.removeAttribute("open");}}>গাজীপুর সদর</Link></li>
                   <li><Link href={"/gazipurcr/bason"} onClick={() => {document.getElementById("case-add-dropdown")?.removeAttribute("open");}}>বাসন</Link></li>
                   <li><Link href={"/gazipurcr/tongieast"} onClick={() => {document.getElementById("case-add-dropdown")?.removeAttribute("open");}}>টঙ্গি পূর্ব</Link></li>
@@ -97,7 +97,7 @@ function Navbar() {
             <li>
               <details id="case-add-dropdown">
                 <summary>Case Add</summary>
-                <ul className="p-2 bg-base-100 w-40 z-1">
+                <ul className="p-2 bg-base-100 w-40 z-50">
                   <li><Link href={"/add/addcr"} onClick={() => {document.getElementById("case-add-dropdown")?.removeAttribute("open");}}>Add CR</Link></li>
                   <li><Link href={"/add/addgr"} onClick={() => {document.getElementById("case-add-dropdown")?.removeAttribute("open");}}>Add GR</Link></li>
                 </ul>
@@ -128,7 +128,7 @@ function Navbar() {
           <li>
             <details id="case-add-dropdown">
               <summary>Case Add</summary>
-              <ul className="p-2 bg-base-100 w-40 z-1">
+              <ul className="p-2 bg-base-100 w-40 z-50">
                 <li><Link href={"/add/addcr"} onClick={() => {document.getElementById("case-add-dropdown")?.removeAttribute("open");}}>Add CR</Link></li>
                 <li><Link href={"/add/addgr"} onClick={() => {document.getElementById("case-add-dropdown")?.removeAttribute("open");}}>Add GR</Link></li>
               </ul>
