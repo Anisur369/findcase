@@ -187,9 +187,8 @@ const policeStationMap = {
         
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">মামলার সম্পর্কে বিস্তারিত তথ্য</h2>
-          <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm border border-blue-600">
-            কেস ধরন: {
-              data.caseType || "No Status"}
+          <span className="block w-28 px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm text-center border border-blue-600">
+            {data.caseType || "No Status"}{data.caseType?" মামলা":""}
           </span>
         </div>
 
@@ -253,7 +252,7 @@ const policeStationMap = {
                 <input
                   name="trSession"
                   value={formData.trSession || ""}
-                  className="select select-bordered"
+                  className="border px-2 py-1 rounded"
                   onChange={handleChange}
                 />                
             ) : (
@@ -382,92 +381,104 @@ const policeStationMap = {
 
 
 
-<p>
-<strong>পরবর্তী তারিখ ও স্ট্যাটাস:</strong>
+<div className="space-y-3">
+  <strong className="block">
+    পরবর্তী তারিখ ও স্ট্যাটাস:
+  </strong>
 
-{isEditing ? (
-<div className="space-y-4 mt-2">
+  {isEditing ? (
+    <div className="space-y-4 mt-2">
 
-{formData.nextDateStatus?.map((item,index)=>(
-<div
-key={index}
-className="border dark:bg-base-200 text-base-content rounded p-3 space-y-2"
->
+      {formData.nextDateStatus?.map((item,index)=>(
+        <div
+          key={index}
+          className="
+          rounded-xl
+          p-4
+          bg-base-100
+          dark:bg-neutral
+          border border-primary/20
+          shadow-md
+          "
+        >
+          <input
+            type="date"
+            value={item.nextDate || ""}
+            onChange={(e)=>
+              handleDateChange(
+                index,
+                "nextDate",
+                e.target.value
+              )
+            }
+            className="input input-bordered w-full mb-2"
+          />
 
-<input
-type="date"
-value={item.nextDate || ""}
-onChange={(e)=>
-handleDateChange(
-index,
-"nextDate",
-e.target.value
-)
-}
-className="border px-2 py-1 rounded w-full"
-/>
+          <textarea
+            value={item.nextStatus || ""}
+            onChange={(e)=>
+              handleDateChange(
+                index,
+                "nextStatus",
+                e.target.value
+              )
+            }
+            className="textarea textarea-bordered w-full"
+          />
 
-<textarea
-placeholder="Status"
-value={item.nextStatus || ""}
-onChange={(e)=>
-handleDateChange(
-index,
-"nextStatus",
-e.target.value
-)
-}
-className="border px-2 py-1 rounded w-full"
-/>
+          <button
+            onClick={()=>handleDeleteDate(index)}
+            className="btn btn-error btn-sm mt-2"
+          >
+            Delete
+          </button>
+        </div>
+      ))}
 
-<button
-onClick={()=>handleDeleteDate(index)}
-className="px-3 py-1 bg-red-500 text-white rounded"
->
-Delete
-</button>
+      <button
+        onClick={handleAddDate}
+        className="btn btn-primary"
+      >
+        + নতুন তারিখ যোগ করুন
+      </button>
 
+    </div>
+  ) : (
+
+    <div className="space-y-3 mt-2">
+      {data.nextDateStatus?.map((item,index)=>(
+        <div
+          key={index}
+          className="
+          rounded-xl
+          p-4
+          bg-base-100
+          dark:bg-neutral
+          border border-primary/20
+          shadow-md
+          "
+        >
+          <div>
+            <strong>তারিখ:</strong> {item.nextDate}
+          </div>
+
+          <div>
+            <strong>স্ট্যাটাস:</strong>{" "}
+            {item.nextStatus || "N/A"}
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  )}
 </div>
-))}
 
-<button
-onClick={handleAddDate}
-className="px-4 py-2 bg-blue-600 text-white rounded"
->
-+ নতুন তারিখ যোগ করুন
-</button>
 
-</div>
-) : (
 
-<div className="space-y-3 mt-2">
-{data.nextDateStatus?.map((item,index)=>(
-<div
-key={index}
-className="
-rounded-xl
-p-4
-bg-base-100
-dark:bg-neutral
-border border-primary/20
-shadow-md
-"
->
-<p>
-<strong>তারিখ:</strong> {item.nextDate}
-</p>
 
-<p>
-<strong>স্ট্যাটাস:</strong>{" "}
-{item.nextStatus || "N/A"}
-</p>
-</div>
-))}
-</div>
 
-)}
-
-</p>
+<span></span>
 
 
 
