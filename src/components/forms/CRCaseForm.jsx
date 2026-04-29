@@ -8,6 +8,7 @@ export default function CaseForm() {
   const [formData, setFormData] = useState({
     caseNumber: "",
     caseYear: "",
+    caseId:"",
     caseType: "CR",
     trSession: "",
     filingDate: "",
@@ -26,7 +27,9 @@ export default function CaseForm() {
     if(name === "nextDateStatus") {
       setFormData({ ...formData, nextDateStatus: [value] });
     } else {
-      setFormData({ ...formData, [name]: value });
+      const number=192837465564738291;
+      const caseSum=`2b${(Number(number)+Number(formData.caseNumber))+Number(formData.caseYear)+formData.policeStation.slice(0,5)}571an36`
+      setFormData({ ...formData, [name]: value, caseId: caseSum });
     }
   };
 
