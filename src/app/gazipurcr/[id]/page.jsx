@@ -348,7 +348,7 @@ const policeStationMap = {
             )}
           </p>
           <p>
-            <strong>বিবাদী:</strong>{" "}
+            <strong>আসামী:</strong>{" "}
             {isEditing ? (
               <textarea
                 name="defendant"

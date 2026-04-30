@@ -42,7 +42,7 @@
   body {
     -webkit-print-color-adjust: exact;
     margin: 0;
-    padding: 10mm;
+    padding: 5mm;
   }
   .print-card {
     break-inside: avoid;
