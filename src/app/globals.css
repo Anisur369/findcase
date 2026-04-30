@@ -20,6 +20,80 @@
   }
 }
 
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0mm;
+  }
+  .print-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px;
+  }
+
+  .print-full {
+    width: 100% !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    margin: 0;
+    padding: 10mm;
+  }
+  .print-card {
+    break-inside: avoid;
+  }
+  input,
+  textarea {
+    border: none;
+    outline: none;
+  }
+  .print-container {
+    width: 100%;
+  }
+
+  table {
+    border-collapse: collapse;
+    page-break-inside: avoid;
+  }
+
+  th, td {
+    text-align: left;
+  }
+
+  .overflow-auto {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  thead {
+    position: static !important;
+  }
+
+  * {
+    max-height: none !important;
+  }
+
+  .print-fix {
+    max-height: none !important;
+  }
+
+  .print-clean {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+}
+
+
+
+
+
+
 body {
   background: var(--background);
   color: var(--foreground);

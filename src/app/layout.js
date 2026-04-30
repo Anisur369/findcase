@@ -25,9 +25,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <HeaderPage />
-        <div>
-          <main>{children}</main>
-        </div>
+        <main>{children}</main>
       </body>
     </html>
   );

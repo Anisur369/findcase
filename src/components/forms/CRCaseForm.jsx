@@ -115,7 +115,7 @@ const removenextDateStatus = (index) => {
     }
 
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_FETCH_API}`, {
+      fetch(`${process.env.NEXT_PUBLIC_FETCH_API}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

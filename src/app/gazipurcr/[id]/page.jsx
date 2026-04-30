@@ -31,9 +31,9 @@ export default function CaseDetailsCard() {
       });
   }, [id]); // ✅ dependency add
 
-  const handlePrint = () => {
-    window.print();
-  };
+  // const handlePrint = () => {
+  //   window.print();
+  // };
 
 
   
@@ -529,12 +529,18 @@ const policeStationMap = {
               >
                 Edit
               </button>
-              <button
+              {/* <button
                 onClick={handlePrint}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-red-700"
               >
                 Print
-              </button>
+                </button> */}
+                <button
+                  onClick={() => router.push(`/gazipurcr/${id}/print`)}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+                >
+                  Print
+                </button>
               <button onClick={handleDeleteCase} className="px-4 py-2 bg-red-600 text-white rounded-lg cursor-pointer hover:bg-red-700">
                 Delete
               </button>

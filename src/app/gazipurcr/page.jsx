@@ -37,7 +37,7 @@ const filteredData = allCaseData.filter((item) => {
  if(item.caseType !== "CR") return false;
 
  return (
-   item.caseNumber.toLowerCase().includes(search.caseNumber.toLowerCase()) &&
+   (search.caseNumber === "" || String(item.caseNumber) === search.caseNumber) &&
    item.caseYear.includes(search.caseYear) &&
    item.filingDate.includes(search.filingDate) &&
    item.plaintiff.toLowerCase().includes(search.plaintiff.toLowerCase()) &&
@@ -133,7 +133,7 @@ const gazipurData = [
 
   return (
     <div className="">
-      <div className="overflow-auto max-h-[80vh] rounded-xl shadow-lg border border-gray-200">
+      <div className="overflow-auto max-h-[93vh] rounded-xl shadow-lg border border-gray-200">
         <table className="table table-zebra table-sm">
           
           <thead className="sticky top-0 z-30 bg-gray-100 text-gray-800 text-sm uppercase">
@@ -221,22 +221,22 @@ const gazipurData = [
 
 
 
-<td className="space-y-2 flex flex-row px-0.5 md:px-1">
-<input
-type="date"
-name="nextDate"
-onChange={handleSearchChange}
-className="input input-sm input-bordered rounded-lg w-45 sm:w-full"
-/>
+              <td className="space-y-2 flex flex-row px-0.5 md:px-1">
+              <input
+              type="date"
+              name="nextDate"
+              onChange={handleSearchChange}
+              className="input input-sm input-bordered rounded-lg w-45 sm:w-full"
+              />
 
-{/* <input
-type="search"
-name="nextStatus"
-placeholder="অবস্থা"
-onChange={handleSearchChange}
-className="input input-sm input-bordered rounded-lg"
-/> */}
-</td>
+              {/* <input
+              type="search"
+              name="nextStatus"
+              placeholder="অবস্থা"
+              onChange={handleSearchChange}
+              className="input input-sm input-bordered rounded-lg"
+              /> */}
+              </td>
 
 
 
@@ -286,24 +286,24 @@ className="input input-sm input-bordered rounded-lg"
 
 
                 
-<td>
-{caseItem.nextDateStatus?.map((item, idx)=>(
-  <div
-    key={idx}
-    className="flex flex-row gap-2"
-  >
-    <div>
-      {item.nextDate
-       ? new Date(item.nextDate).toLocaleDateString("bn-bd")
-       : ""}
-    </div>
+                <td>
+                {caseItem.nextDateStatus?.map((item, idx)=>(
+                  <div
+                    key={idx}
+                    className="flex flex-row gap-2"
+                  >
+                    <div>
+                      {item.nextDate
+                      ? new Date(item.nextDate).toLocaleDateString("bn-bd")
+                      : ""}
+                    </div>
 
-    <div className="font-medium text-blue-600">
-      {item.nextStatus}
-    </div>
-  </div>
-))}
-</td>
+                    <div className="font-medium text-blue-600">
+                      {item.nextStatus}
+                    </div>
+                  </div>
+                ))}
+                </td>
 
 
 
